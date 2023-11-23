@@ -33,11 +33,21 @@ export function equalizePoints(p1, p2) {
 }
 
 /**
+ * @param {number} translateValue
+ * @returns {number}
+ */
+function roundTranslation(translateValue) {
+  const roundedValue =
+    Math.round(translateValue * devicePixelRatio) / devicePixelRatio;
+  return roundedValue;
+}
+
+/**
  * @param {Point} p
  */
 export function roundPoint(p) {
-  p.x = Math.round(p.x);
-  p.y = Math.round(p.y);
+  p.x = roundTranslation(p.x);
+  p.y = roundTranslation(p.y);
 }
 
 /**
@@ -50,7 +60,7 @@ export function roundPoint(p) {
 export function getDistanceBetween(p1, p2) {
   const x = Math.abs(p1.x - p2.x);
   const y = Math.abs(p1.y - p2.y);
-  return Math.sqrt((x * x) + (y * y));
+  return Math.sqrt(x * x + y * y);
 }
 
 /**
@@ -106,7 +116,7 @@ export function setTransform(el, x, y, scale) {
   el.style.transform = toTransformString(x, y, scale);
 }
 
-const defaultCSSEasing = 'cubic-bezier(.4,0,.22,1)';
+const defaultCSSEasing = "cubic-bezier(.4,0,.22,1)";
 
 /**
  * Apply CSS transition to element
@@ -122,7 +132,7 @@ export function setTransitionStyle(el, prop, duration, ease) {
   // in: 'cubic-bezier(.4, 0, 1, 1)'// for "hide" transitions
   el.style.transition = prop
     ? `${prop} ${duration}ms ${ease || defaultCSSEasing}`
-    : 'none';
+    : "none";
 }
 
 /**
@@ -133,8 +143,8 @@ export function setTransitionStyle(el, prop, duration, ease) {
  * @param {string | number} h
  */
 export function setWidthHeight(el, w, h) {
-  el.style.width = (typeof w === 'number') ? `${w}px` : w;
-  el.style.height = (typeof h === 'number') ? `${h}px` : h;
+  el.style.width = typeof w === "number" ? `${w}px` : w;
+  el.style.height = typeof h === "number" ? `${h}px` : h;
 }
 
 /**
@@ -149,7 +159,7 @@ export function removeTransitionStyle(el) {
  * @returns {Promise<HTMLImageElement | void>}
  */
 export function decodeImage(img) {
-  if ('decode' in img) {
+  if ("decode" in img) {
     return img.decode().catch(() => {});
   }
 
@@ -166,12 +176,11 @@ export function decodeImage(img) {
 /** @typedef {LOAD_STATE[keyof LOAD_STATE]} LoadState */
 /** @type {{ IDLE: 'idle'; LOADING: 'loading'; LOADED: 'loaded'; ERROR: 'error' }} */
 export const LOAD_STATE = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  LOADED: 'loaded',
-  ERROR: 'error',
+  IDLE: "idle",
+  LOADING: "loading",
+  LOADED: "loaded",
+  ERROR: "error",
 };
-
 
 /**
  * Check if click or keydown event was dispatched
@@ -181,7 +190,13 @@ export const LOAD_STATE = {
  * @returns {boolean}
  */
 export function specialKeyUsed(e) {
-  return ('button' in e && e.button === 1) || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
+  return (
+    ("button" in e && e.button === 1) ||
+    e.ctrlKey ||
+    e.metaKey ||
+    e.altKey ||
+    e.shiftKey
+  );
 }
 
 /**
@@ -192,7 +207,11 @@ export function specialKeyUsed(e) {
  * @param {HTMLElement | Document} [parent]
  * @returns HTMLElement[]
  */
-export function getElementsFromOption(option, legacySelector, parent = document) {
+export function getElementsFromOption(
+  option,
+  legacySelector,
+  parent = document
+) {
   /** @type {HTMLElement[]} */
   let elements = [];
 
@@ -201,7 +220,7 @@ export function getElementsFromOption(option, legacySelector, parent = document)
   } else if (option instanceof NodeList || Array.isArray(option)) {
     elements = Array.from(option);
   } else {
-    const selector = typeof option === 'string' ? option : legacySelector;
+    const selector = typeof option === "string" ? option : legacySelector;
     if (selector) {
       elements = Array.from(parent.querySelectorAll(selector));
     }
@@ -217,9 +236,7 @@ export function getElementsFromOption(option, legacySelector, parent = document)
  * @returns {boolean}
  */
 export function isPswpClass(fn) {
-  return typeof fn === 'function'
-    && fn.prototype
-    && fn.prototype.goTo;
+  return typeof fn === "function" && fn.prototype && fn.prototype.goTo;
 }
 
 /**
@@ -230,4 +247,3 @@ export function isPswpClass(fn) {
 export function isSafari() {
   return !!(navigator.vendor && navigator.vendor.match(/apple/i));
 }
-
