@@ -1,5 +1,5 @@
 {
-  "name": "photoswipe",
+  "name": "voyager-photoswipe",
   "version": "5.4.2",
   "main": "dist/photoswipe.esm.js",
   "style": "dist/photoswipe.css",
