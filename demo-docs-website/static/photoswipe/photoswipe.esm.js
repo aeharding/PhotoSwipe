@@ -41,12 +41,22 @@ function equalizePoints(p1, p2) {
   return p1;
 }
 /**
+ * @param {number} translateValue
+ * @returns {number}
+ */
+
+function roundTranslation(translateValue) {
+  const roundedValue = Math.round(translateValue * devicePixelRatio) / devicePixelRatio;
+  return roundedValue;
+}
+/**
  * @param {Point} p
  */
 
+
 function roundPoint(p) {
-  p.x = Math.round(p.x);
-  p.y = Math.round(p.y);
+  p.x = roundTranslation(p.x);
+  p.y = roundTranslation(p.y);
 }
 /**
  * Returns distance between two points.
@@ -114,7 +124,7 @@ function toTransformString(x, y, scale) {
 function setTransform(el, x, y, scale) {
   el.style.transform = toTransformString(x, y, scale);
 }
-const defaultCSSEasing = 'cubic-bezier(.4,0,.22,1)';
+const defaultCSSEasing = "cubic-bezier(.4,0,.22,1)";
 /**
  * Apply CSS transition to element
  *
@@ -128,7 +138,7 @@ function setTransitionStyle(el, prop, duration, ease) {
   // inOut: 'cubic-bezier(.4, 0, .22, 1)', // for "toggle state" transitions
   // out: 'cubic-bezier(0, 0, .22, 1)', // for "show" transitions
   // in: 'cubic-bezier(.4, 0, 1, 1)'// for "hide" transitions
-  el.style.transition = prop ? `${prop} ${duration}ms ${ease || defaultCSSEasing}` : 'none';
+  el.style.transition = prop ? `${prop} ${duration}ms ${ease || defaultCSSEasing}` : "none";
 }
 /**
  * Apply width and height CSS properties to element
@@ -139,8 +149,8 @@ function setTransitionStyle(el, prop, duration, ease) {
  */
 
 function setWidthHeight(el, w, h) {
-  el.style.width = typeof w === 'number' ? `${w}px` : w;
-  el.style.height = typeof h === 'number' ? `${h}px` : h;
+  el.style.width = typeof w === "number" ? `${w}px` : w;
+  el.style.height = typeof h === "number" ? `${h}px` : h;
 }
 /**
  * @param {HTMLElement} el
@@ -155,7 +165,7 @@ function removeTransitionStyle(el) {
  */
 
 function decodeImage(img) {
-  if ('decode' in img) {
+  if ("decode" in img) {
     return img.decode().catch(() => {});
   }
 
@@ -174,10 +184,10 @@ function decodeImage(img) {
 /** @type {{ IDLE: 'idle'; LOADING: 'loading'; LOADED: 'loaded'; ERROR: 'error' }} */
 
 const LOAD_STATE = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  LOADED: 'loaded',
-  ERROR: 'error'
+  IDLE: "idle",
+  LOADING: "loading",
+  LOADED: "loaded",
+  ERROR: "error"
 };
 /**
  * Check if click or keydown event was dispatched
@@ -188,7 +198,7 @@ const LOAD_STATE = {
  */
 
 function specialKeyUsed(e) {
-  return 'button' in e && e.button === 1 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
+  return "button" in e && e.button === 1 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
 }
 /**
  * Parse `gallery` or `children` options.
@@ -208,7 +218,7 @@ function getElementsFromOption(option, legacySelector, parent = document) {
   } else if (option instanceof NodeList || Array.isArray(option)) {
     elements = Array.from(option);
   } else {
-    const selector = typeof option === 'string' ? option : legacySelector;
+    const selector = typeof option === "string" ? option : legacySelector;
 
     if (selector) {
       elements = Array.from(parent.querySelectorAll(selector));

@@ -51,18 +51,18 @@ function toTransformString(x, y, scale) {
  */
 
 function setWidthHeight(el, w, h) {
-  el.style.width = typeof w === 'number' ? `${w}px` : w;
-  el.style.height = typeof h === 'number' ? `${h}px` : h;
+  el.style.width = typeof w === "number" ? `${w}px` : w;
+  el.style.height = typeof h === "number" ? `${h}px` : h;
 }
 /** @typedef {LOAD_STATE[keyof LOAD_STATE]} LoadState */
 
 /** @type {{ IDLE: 'idle'; LOADING: 'loading'; LOADED: 'loaded'; ERROR: 'error' }} */
 
 const LOAD_STATE = {
-  IDLE: 'idle',
-  LOADING: 'loading',
-  LOADED: 'loaded',
-  ERROR: 'error'
+  IDLE: "idle",
+  LOADING: "loading",
+  LOADED: "loaded",
+  ERROR: "error"
 };
 /**
  * Check if click or keydown event was dispatched
@@ -73,7 +73,7 @@ const LOAD_STATE = {
  */
 
 function specialKeyUsed(e) {
-  return 'button' in e && e.button === 1 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
+  return "button" in e && e.button === 1 || e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
 }
 /**
  * Parse `gallery` or `children` options.
@@ -93,7 +93,7 @@ function getElementsFromOption(option, legacySelector, parent = document) {
   } else if (option instanceof NodeList || Array.isArray(option)) {
     elements = Array.from(option);
   } else {
-    const selector = typeof option === 'string' ? option : legacySelector;
+    const selector = typeof option === "string" ? option : legacySelector;
 
     if (selector) {
       elements = Array.from(parent.querySelectorAll(selector));
@@ -110,7 +110,7 @@ function getElementsFromOption(option, legacySelector, parent = document) {
  */
 
 function isPswpClass(fn) {
-  return typeof fn === 'function' && fn.prototype && fn.prototype.goTo;
+  return typeof fn === "function" && fn.prototype && fn.prototype.goTo;
 }
 /**
  * Check if browser is Safari
